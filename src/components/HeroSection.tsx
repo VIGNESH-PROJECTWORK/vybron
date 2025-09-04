@@ -1,35 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
+  const [isDark, setIsDark] = React.useState(false);
+
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    
+    setIsDark(shouldBeDark);
+    document.documentElement.classList.toggle('dark', shouldBeDark);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    document.documentElement.classList.toggle('dark', newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
+
   const handleBookNow = () => {
     window.open('https://forms.google.com/placeholder', '_blank');
   };
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Theme Toggle Button */}
+      <motion.div
+        className="absolute top-20 right-8 z-20"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+      >
+        <Button
+          onClick={toggleTheme}
+          variant="outline"
+          size="icon"
+          className="rounded-full bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 text-white hover:text-white transition-all duration-300 shadow-lg"
+        >
+          <motion.div
+            initial={false}
+            animate={{ rotate: isDark ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </motion.div>
+        </Button>
+      </motion.div>
+
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900">
         <div className="absolute inset-0 bg-black/20" />
-        {/* Enhanced floating particles */}
-        {[...Array(30)].map((_, i) => (
+        {/* Subtle floating particles */}
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className={`absolute ${Math.random() > 0.5 ? 'w-1 h-1' : 'w-2 h-2'} bg-white/30 rounded-full`}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -50, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.1, 0.6, 0.1],
-              scale: [1, 1.5, 1],
+              y: [0, -30, 0],
+              opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: 6 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 2,
               ease: "easeInOut",
@@ -37,24 +76,24 @@ const HeroSection = () => {
           />
         ))}
         
-        {/* Gradient orbs */}
-        {[...Array(5)].map((_, i) => (
+        {/* Subtle gradient orbs */}
+        {[...Array(3)].map((_, i) => (
           <motion.div
             key={`orb-${i}`}
-            className="absolute rounded-full bg-gradient-to-r from-blue-400/10 to-violet-400/10 blur-xl"
+            className="absolute rounded-full bg-gradient-to-r from-blue-400/5 to-violet-400/5 blur-2xl"
             style={{
-              width: `${100 + Math.random() * 200}px`,
-              height: `${100 + Math.random() * 200}px`,
+              width: `${150 + Math.random() * 100}px`,
+              height: `${150 + Math.random() * 100}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50, 0],
-              y: [0, Math.random() * 100 - 50, 0],
-              scale: [1, 1.2, 1],
+              x: [0, Math.random() * 50 - 25, 0],
+              y: [0, Math.random() * 50 - 25, 0],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 8 + Math.random() * 4,
+              duration: 12 + Math.random() * 6,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -149,7 +188,7 @@ const HeroSection = () => {
                   transition={{ duration: 0.6 }}
                 />
                 <span className="relative z-10 flex items-center">
-                  Book Now
+                  Start Your Journey
                   <motion.div
                     className="ml-2"
                     whileHover={{ x: 5 }}

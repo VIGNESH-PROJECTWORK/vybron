@@ -1,28 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Clock, Trophy, FileText, Headphones, Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Clock, Trophy, FileText, Headphones } from 'lucide-react';
 
 const WhyChooseUsSection = () => {
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDark(shouldBeDark);
-    document.documentElement.classList.toggle('dark', shouldBeDark);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-  };
-
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -83,29 +64,6 @@ const WhyChooseUsSection = () => {
   return (
     <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Theme Toggle */}
-        <motion.div
-          className="flex justify-end mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Button
-            onClick={toggleTheme}
-            variant="outline"
-            size="icon"
-            className="rounded-full border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          >
-            <motion.div
-              initial={false}
-              animate={{ rotate: isDark ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </motion.div>
-          </Button>
-        </motion.div>
-
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
