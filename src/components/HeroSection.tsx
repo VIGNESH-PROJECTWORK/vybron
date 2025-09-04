@@ -54,21 +54,25 @@ const HeroSection = () => {
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900">
         <div className="absolute inset-0 bg-black/20" />
-        {/* Subtle floating particles */}
-        {[...Array(20)].map((_, i) => (
+        
+        {/* Floating bubbles */}
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            className="absolute bg-white/10 rounded-full border border-white/20"
             style={{
+              width: `${8 + Math.random() * 16}px`,
+              height: `${8 + Math.random() * 16}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
+              y: [0, -100, -200],
+              opacity: [0, 0.6, 0],
+              scale: [0.5, 1, 0.5],
             }}
             transition={{
-              duration: 6 + Math.random() * 4,
+              duration: 8 + Math.random() * 6,
               repeat: Infinity,
               delay: Math.random() * 2,
               ease: "easeInOut",
@@ -76,25 +80,27 @@ const HeroSection = () => {
           />
         ))}
         
-        {/* Subtle gradient orbs */}
-        {[...Array(3)].map((_, i) => (
+        {/* Large floating bubbles */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
-            key={`orb-${i}`}
-            className="absolute rounded-full bg-gradient-to-r from-blue-400/5 to-violet-400/5 blur-2xl"
+            key={`bubble-${i}`}
+            className="absolute rounded-full bg-gradient-to-br from-blue-400/5 to-violet-400/5 border border-white/5"
             style={{
-              width: `${150 + Math.random() * 100}px`,
-              height: `${150 + Math.random() * 100}px`,
+              width: `${40 + Math.random() * 60}px`,
+              height: `${40 + Math.random() * 60}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              x: [0, Math.random() * 50 - 25, 0],
-              y: [0, Math.random() * 50 - 25, 0],
-              scale: [1, 1.1, 1],
+              y: [0, -150, -300],
+              x: [0, Math.random() * 30 - 15, Math.random() * 30 - 15],
+              opacity: [0, 0.3, 0],
+              scale: [0.8, 1.2, 0.8],
             }}
             transition={{
-              duration: 12 + Math.random() * 6,
+              duration: 12 + Math.random() * 8,
               repeat: Infinity,
+              delay: Math.random() * 4,
               ease: "easeInOut",
             }}
           />
@@ -181,12 +187,6 @@ const HeroSection = () => {
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 group"
             >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '100%' }}
-                  transition={{ duration: 0.6 }}
-                />
                 <span className="relative z-10 flex items-center">
                   Start Your Journey
                   <motion.div
