@@ -4,53 +4,12 @@ import { ArrowRight, Sparkles, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDark(shouldBeDark);
-    document.documentElement.classList.toggle('dark', shouldBeDark);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-  };
-
   const handleBookNow = () => {
     window.open('https://forms.google.com/placeholder', '_blank');
   };
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Theme Toggle Button */}
-      <motion.div
-        className="absolute top-20 right-8 z-20"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-      >
-        <Button
-          onClick={toggleTheme}
-          variant="outline"
-          size="icon"
-          className="rounded-full bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 text-white hover:text-white transition-all duration-300 shadow-lg"
-        >
-          <motion.div
-            initial={false}
-            animate={{ rotate: isDark ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </motion.div>
-        </Button>
-      </motion.div>
-
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900">
         <div className="absolute inset-0 bg-black/20" />
@@ -61,8 +20,8 @@ const HeroSection = () => {
             key={i}
             className="absolute bg-white/10 rounded-full border border-white/20"
             style={{
-              width: `${8 + Math.random() * 16}px`,
-              height: `${8 + Math.random() * 16}px`,
+              width: `${4 + Math.random() * 8}px`,
+              height: `${4 + Math.random() * 8}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
@@ -86,8 +45,8 @@ const HeroSection = () => {
             key={`bubble-${i}`}
             className="absolute rounded-full bg-gradient-to-br from-blue-400/5 to-violet-400/5 border border-white/5"
             style={{
-              width: `${40 + Math.random() * 60}px`,
-              height: `${40 + Math.random() * 60}px`,
+              width: `${20 + Math.random() * 30}px`,
+              height: `${20 + Math.random() * 30}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
